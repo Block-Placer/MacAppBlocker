@@ -171,6 +171,9 @@
       <a href="AppBlockInstaller.sh" download class="btn secondary">
         Download Installer
       </a>
+      <a href="#how" download class="btn secondary">
+        How it works
+      </a>
     </div>
   </div>
 </header>
@@ -241,9 +244,17 @@ sudo ./AppBlockInstaller.sh</code></pre>
   <div class="container">
     <h2>Usage</h2>
 
-    <pre><code>block /Applications/Safari.app
+    <pre><code>
+# To block an app, run block then the path to the application. Some apps are in /System/Applications/
+block /Applications/Safari.app
+
+# To view what apps are blocked:
 block list
+
+# To unblock an app:
 unblock Safari
+
+# To uninstall Blocker:
 block uninstall</code></pre>
   </div>
 </section>
