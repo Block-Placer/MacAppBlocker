@@ -1,10 +1,5 @@
 #!/bin/zsh
-# blocker_installer.sh
-# One-command installer for the Blocker system
-
 set -e
-
-echo "Installing Blocker system..."
 
 sudo mkdir -p /Library/Blocker
 sudo mkdir -p /usr/local/bin
@@ -45,41 +40,64 @@ EOF
 
 sudo tee /usr/local/bin/block > /dev/null <<'EOF'
 #!/bin/zsh
+
 LIST="/Library/Blocker/blocked.txt"
-mkdir -p /Library/Blocker
-touch "$LIST"
-TARGET="$1"
-if [[ -z "$TARGET" ]]; then
+
+[[ -z "$1" ]] && {
   echo "Usage:"
-  echo "  block /path/to/app-or-binary"
+  echo "  block /path/to/app"
   echo "  block list"
+  echo "  block uninstall"
   exit 1
-fi
-if [[ "$TARGET" == "list" ]]; then
-  cat "$LIST"
+}
+
+sudo mkdir -p /Library/Blocker 2>/dev/null
+sudo touch "$LIST" 2>/dev/null
+
+if [[ "$1" == "list" ]]; then
+  sudo cat "$LIST" 2>/dev/null
   exit 0
 fi
-if [[ ! -e "$TARGET" ]]; then
+
+if [[ "$1" == "uninstall" ]]; then
+  sudo launchctl bootout system/com.local.blocker 2>/dev/null
+  sudo rm -f /Library/LaunchDaemons/com.local.blocker.plist
+  sudo rm -rf /Library/Blocker
+  sudo rm -f /usr/local/bin/block /usr/local/bin/unblock
+  echo "Blocker uninstalled."
+  exit 0
+fi
+
+TARGET="$1"
+
+[[ ! -e "$TARGET" ]] && {
   echo "Not found: $TARGET"
   exit 1
-fi
+}
+
 NAME=$(basename "$TARGET")
 NAME="${NAME%.app}"
-grep -qx "$NAME" "$LIST" || echo "$NAME" | sudo tee -a "$LIST" > /dev/null
-sudo launchctl kickstart -k system/com.local.blocker
+
+sudo grep -qx "$NAME" "$LIST" 2>/dev/null || echo "$NAME" | sudo tee -a "$LIST" > /dev/null
+sudo launchctl kickstart -k system/com.local.blocker 2>/dev/null
 echo "Blocked: $NAME"
 EOF
 sudo chmod +x /usr/local/bin/block
 
 sudo tee /usr/local/bin/unblock > /dev/null <<'EOF'
 #!/bin/zsh
+
 LIST="/Library/Blocker/blocked.txt"
 NAME="$1"
-if [[ -z "$NAME" ]]; then
+
+[[ -z "$NAME" ]] && {
   echo "Usage: unblock AppName"
   exit 1
-fi
-sudo sed -i '' "/^${NAME}$/d" "$LIST"
+}
+
+[[ ! -f "$LIST" ]] && exit 0
+
+sudo sed -i '' "/^${NAME}$/d" "$LIST" 2>/dev/null
 echo "Unblocked: $NAME"
 EOF
 sudo chmod +x /usr/local/bin/unblock
@@ -87,5 +105,4 @@ sudo chmod +x /usr/local/bin/unblock
 sudo launchctl bootout system/com.local.blocker 2>/dev/null || true
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.blocker.plist
 
-echo "✅ Blocker system installed successfully!"
-echo "Use 'block /path/to/app' to block apps, 'unblock AppName' to unblock, and 'block list' to see blocked apps."
+echo "Blocker installed successfully."
