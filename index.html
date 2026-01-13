@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blocker – macOS App Blocking</title>
 
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +42,6 @@
       padding: 0 24px;
     }
 
-    /* ---------- HERO ---------- */
     header {
       background: linear-gradient(135deg, var(--blue), #1e40af);
       color: white;
@@ -89,7 +87,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
-    /* ---------- SECTIONS ---------- */
     section {
       padding: 80px 0;
     }
@@ -109,7 +106,6 @@
       margin-bottom: 48px;
     }
 
-    /* ---------- CARDS ---------- */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -133,7 +129,6 @@
       font-size: 0.95rem;
     }
 
-    /* ---------- CODE BLOCK ---------- */
     pre {
       background: #020617;
       color: #e5e7eb;
@@ -147,7 +142,6 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     }
 
-    /* ---------- FOOTER ---------- */
     footer {
       text-align: center;
       padding: 40px 0;
@@ -155,7 +149,6 @@
       font-size: 0.9rem;
     }
 
-    /* ---------- RESPONSIVE ---------- */
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.2rem;
@@ -165,155 +158,119 @@
 </head>
 <body>
 
-  <!-- HERO -->
-  <header>
-    <div class="container">
-      <h1>Block apps instantly on macOS</h1>
-      <p>
-        Blocker is a lightweight background system that force-closes selected
-        apps the moment they start — even after reboot.
-      </p>
+<header>
+  <div class="container">
+    <h1>Block apps instantly on macOS</h1>
+    <p>
+      Blocker is a lightweight background system that force-closes selected
+      apps the moment they start — even after reboot.
+    </p>
 
-      <div class="hero-buttons">
-        <a href="#install" class="btn">Install Blocker</a>
-        <a href="#how" class="btn secondary">How it works</a>
+    <div class="hero-buttons">
+      <a href="#install" class="btn">Install Blocker</a>
+      <a href="AppBlockInstaller.sh" download class="btn secondary">
+        Download Installer
+      </a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>Why Blocker?</h2>
+    <p class="subtitle">
+      Built for simplicity, reliability, and control — without tracking,
+      servers, or unnecessary complexity.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Always running</h3>
+        <p>Starts automatically and stays active at all times.</p>
+      </div>
+      <div class="card">
+        <h3>Instant blocking</h3>
+        <p>Blocked apps are terminated immediately when launched.</p>
+      </div>
+      <div class="card">
+        <h3>Terminal simple</h3>
+        <p>Block and unblock apps with clean commands.</p>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- FEATURES -->
-  <section>
-    <div class="container">
-      <h2>Why Blocker?</h2>
-      <p class="subtitle">
-        Built for simplicity, reliability, and control — without tracking,
-        servers, or unnecessary complexity.
-      </p>
+<section id="how" class="light">
+  <div class="container">
+    <h2>How it works</h2>
+    <p class="subtitle">
+      A background service watches for blocked applications and force-quits them.
+    </p>
 
-      <div class="grid">
-        <div class="card">
-          <h3>Always running</h3>
-          <p>
-            Uses a LaunchDaemon to stay active at all times,
-            even before login.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Instant blocking</h3>
-          <p>
-            Blocked apps are terminated immediately when launched.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Terminal simple</h3>
-          <p>
-            Block and unblock apps using clean, easy commands.
-          </p>
-        </div>
+    <div class="grid">
+      <div class="card">
+        <h3>LaunchDaemon</h3>
+        <p>Runs continuously from system boot.</p>
+      </div>
+      <div class="card">
+        <h3>Block list</h3>
+        <p>App names are stored locally on your Mac.</p>
+      </div>
+      <div class="card">
+        <h3>Process termination</h3>
+        <p>Blocked apps cannot stay open.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how" class="light">
-    <div class="container">
-      <h2>How it works</h2>
-      <p class="subtitle">
-        Blocker installs a small background service that watches for
-        blocked applications.
-      </p>
+<section id="install">
+  <div class="container">
+    <h2>Installation</h2>
+    <p class="subtitle">
+      Run the following commands in the default Terminal app.
+    </p>
 
-      <div class="grid">
-        <div class="card">
-          <h3>LaunchDaemon</h3>
-          <p>
-            Starts automatically on boot and stays alive.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Block list</h3>
-          <p>
-            App names are stored locally in a protected file.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Process termination</h3>
-          <p>
-            Uses system tools to force-close blocked apps instantly.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INSTALL -->
-  <section id="install">
-    <div class="container">
-      <h2>Installation</h2>
-      <p class="subtitle">
-        Install Blocker with a single command. Administrator access is required. Run the command below in the default Terminal app.
-      </p>
-
-      <pre><code>curl -O https://appblock.blockservers.net/AppBlockInstaller.sh
+    <pre><code>curl -O https://appblock.blockservers.net/AppBlockInstaller.sh
 chmod +x AppBlockInstaller.sh
 sudo ./AppBlockInstaller.sh</code></pre>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- USAGE -->
-  <section class="light">
-    <div class="container">
-      <h2>Usage</h2>
-      <p class="subtitle">
-        Blocker works entirely from the terminal.
-      </p>
+<section class="light">
+  <div class="container">
+    <h2>Usage</h2>
 
-      <pre><code># Block an app
-block /Applications/Safari.app
-
-# List blocked apps
+    <pre><code>block /Applications/Safari.app
 block list
-
-# Unblock an app
 unblock Safari
+block uninstall</code></pre>
+  </div>
+</section>
 
-# NOTE: Some apps are in the /System/Applications/ directory! These are usually native MacOS apps.
-# Igore syntax errors, just look for if it says your app is blocked or unblocked. Ignore the grep and touch errors.
-      </code></pre>
-    </div>
-  </section>
-
-  <!-- SAFETY -->
-  <section>
-    <div class="container">
-      <h2>Safety & transparency</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>No tracking</h3>
-          <p>
-            Blocker does not log usage or send data anywhere.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Local only</h3>
-          <p>
-            Everything runs locally on your Mac.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Admin removable</h3>
-          <p>
-            An administrator can disable or remove Blocker.
-          </p>
-        </div>
+<section>
+  <div class="container">
+    <h2>Safety & transparency</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>No tracking</h3>
+        <p>No data collection or logging.</p>
+      </div>
+      <div class="card">
+        <h3>Local only</h3>
+        <p>Runs entirely on your device.</p>
+      </div>
+      <div class="card">
+        <h3>Admin removable</h3>
+        <p>Fully removable with one command.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    Blocker for macOS • Lightweight • Open & Transparent
-  </footer>
+<footer>
+  Blocker for macOS • Lightweight • Open & Transparent
+</footer>
 
 </body>
 </html>
